@@ -1,13 +1,17 @@
 {
   "name": "brazil-formatter",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts"
+    "dev": "ts-node src/index.ts",
+    "major": "npm version major && git push && git push origin --tags",
+    "minor": "npm version minor && git push && git push origin --tags",
+    "patch": "npm version patch && git push && git push origin --tags",
+    "alpha": "npm version prerelease --preid=alpha && git push && git push origin --tags"
   },
   "repository": {
     "type": "git",
