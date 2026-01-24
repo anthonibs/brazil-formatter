@@ -1,0 +1,28 @@
+{
+  "name": "brazil-formatter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anthonibs/brazil-formatter.git"
+  },
+  "keywords": [],
+  "author": "Anthoni B S",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anthonibs/brazil-formatter/issues"
+  },
+  "homepage": "https://github.com/anthonibs/brazil-formatter#readme",
+  "devDependencies": {
+    "@types/node": "^25.0.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
