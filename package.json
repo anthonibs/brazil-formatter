@@ -1,7 +1,7 @@
 {
-  "name": "brazil-formatter",
+  "name": "@brazil-formatter",
   "version": "1.0.0",
-  "description": "",
+  "description": "Biblioteca leve e sem dependências para validação e formatação de CPF, CNPJ e CEP.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
