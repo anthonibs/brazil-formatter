@@ -19,7 +19,7 @@ const CNPJ_FORMATTED = "33.000.167/0001-01";
 const REPEATED_DIGITS_CNPJ = "11111111111111";
 
 describe("API exports", () => {
-  it("Should export are main functions", () => {
+  it("Should export all main functions", () => {
     expect(typeof cpfMask).toBe("function");
     expect(typeof cpfFormat).toBe("function");
     expect(typeof cpfIsValid).toBe("function");
@@ -35,7 +35,7 @@ describe("API exports", () => {
 });
 
 describe("Return of utility functions", () => {
-  it("should onlyDigits remove non-numeric characters", () => {
+  it("Should onlyDigits remove non-numeric characters", () => {
     expect(onlyDigits(CNPJ_FORMATTED)).toBe("33000167000101");
     expect(onlyDigits(" 33.000.167/0001-01 ")).toBe("33000167000101");
     expect(onlyDigits("abc")).toBe("");
@@ -56,7 +56,7 @@ describe("CPF", () => {
     expect(cpfMask("529982247")).toBe("529.982.247");
   });
 
-  it("Should formatted correctly", () => {
+  it("Should format correctly", () => {
     expect(cpfFormat("529.982.247-25")).toBe("529.982.247-25");
     expect(cpfFormat("1", { pad: true })).toBe("000.000.000-01");
   });
@@ -74,7 +74,7 @@ describe("CNPJ", () => {
     expect(cnpjMask("042520110001")).toBe("04.252.011/0001");
   });
 
-  it("Should formatted correctly", () => {
+  it("Should format correctly", () => {
     expect(cnpjFormat("33.000.167/0001-01")).toBe("33.000.167/0001-01");
     expect(cnpjFormat("1", { pad: true })).toBe("00.000.000/0000-01");
   });
@@ -92,7 +92,7 @@ describe("CEP", () => {
     expect(cepMask("01001")).toBe("01001");
   });
 
-  it("Should formatted correctly", () => {
+  it("Should format correctly", () => {
     expect(cepFormat("01001-000")).toBe("01001-000");
     expect(cepFormat("1", { pad: true })).toBe("00000-001");
   });
