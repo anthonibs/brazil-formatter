@@ -2,24 +2,25 @@
   "name": "brazil-formatter",
   "version": "1.0.1",
   "description": "Biblioteca leve e sem dependências para validação e formatação de CPF, CNPJ e CEP.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
-  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
+    "test": "jest",
+    "build": "tsup src/index.ts --format cjs,esm --dts --minify --clean",
+    "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
     "prepublishOnly": "npm run build",
-    "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts",
     "major": "npm version major && git push && git push origin --tags",
     "minor": "npm version minor && git push && git push origin --tags",
     "patch": "npm version patch && git push && git push origin --tags",
     "alpha": "npm version prerelease --preid=alpha && git push && git push origin --tags"
   },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/anthonibs/brazil-formatter.git"
@@ -41,11 +42,22 @@
   },
   "homepage": "https://github.com/anthonibs/brazil-formatter#readme",
   "devDependencies": {
+    "@types/jest": "^29.5.12",
     "@types/node": "^22.0.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
+    "tsup": "^8.5.1",
     "typescript": "^5.0.0"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
   }
 }
