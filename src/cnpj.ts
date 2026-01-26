@@ -26,6 +26,13 @@ function validaCNPJ(cnpj: string): number {
 	return mod < 2 ? 0 : 11 - mod;
 }
 
+/**
+ * Aplica máscara de CNPJ ao valor informado.
+ *
+ * @param input - String de entrada que pode conter quaisquer caracteres; apenas dígitos serão considerados.
+ * @param opts - Opções de formatação. Se `pad` for verdadeiro, completa com zeros à esquerda até 14 dígitos.
+ * @returns CNPJ formatado no padrão `00.000.000/0000-00`.
+ */
 export function cnpjMask(input: string, opts: MaskOptions = {}): string {
 	const digits = onlyDigits(input);
 	const d = opts.pad ? digits.padStart(CNPJ_LEN, "0").slice(-CNPJ_LEN) : digits;
@@ -44,6 +51,15 @@ export function cnpjMask(input: string, opts: MaskOptions = {}): string {
 	return out;
 }
 
+/**
+ * Valida um CNPJ informado como string.
+ *
+ * Remove caracteres não numéricos, verifica tamanho, repetição de dígitos
+ * e calcula os dígitos verificadores.
+ *
+ * @param input - CNPJ a ser validado (pode conter máscara ou apenas números).
+ * @returns `true` se o CNPJ for válido; caso contrário, `false`.
+ */
 export function cnpjIsValid(input: string): boolean {
 	const digits = onlyDigits(input);
 	if (digits.length !== CNPJ_LEN) return false;
@@ -57,6 +73,14 @@ export function cnpjIsValid(input: string): boolean {
 	return digits === base12 + String(dv1) + String(dv2);
 }
 
+/**
+ * Formata uma string como CNPJ, aplicando máscara e opções de preenchimento.
+ *
+ * @param input - Texto de entrada contendo dígitos do CNPJ (com ou sem formatação).
+ * @param opts - Opções de máscara (ex.: padding). Se `opts.pad` for falso e o total de dígitos
+ * não for igual ao comprimento esperado, a máscara é aplicada conforme disponível.
+ * @returns CNPJ formatado de acordo com a máscara e opções informadas.
+ */
 export function cnpjFormat(input: string, opts: MaskOptions = {}): string {
 	const digits = onlyDigits(input);
 	if (!opts.pad && digits.length !== CNPJ_LEN) return cnpjMask(digits, opts);
