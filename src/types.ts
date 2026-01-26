@@ -1,3 +1,3 @@
 export type MaskOptions = {
-  pad?: boolean;
+	pad?: boolean;
 };

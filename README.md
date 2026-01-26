@@ -24,15 +24,15 @@ pnpm add brazil-formatter
 
 ```ts
 import {
-  cpfMask,
-  cpfFormat,
-  cpfIsValid,
-  cnpjMask,
-  cnpjFormat,
-  cnpjIsValid,
-  cepMask,
-  cepFormat,
-  cepIsValid,
+	cpfMask,
+	cpfFormat,
+	cpfIsValid,
+	cnpjMask,
+	cnpjFormat,
+	cnpjIsValid,
+	cepMask,
+	cepFormat,
+	cepIsValid,
 } from "brazil-formatter";
 
 cpfMask("12345678901"); // "123.456.789-01"
@@ -90,7 +90,7 @@ cepIsValid("01001-000"); // true
 
 ```ts
 type MaskOptions = {
-  pad?: boolean;
+	pad?: boolean;
 };
 ```
 
@@ -128,4 +128,3 @@ cepIsValid("01001-000"); // true
 ## Licença
 
 MIT
-

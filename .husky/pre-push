@@ -1,0 +1,25 @@
+#!/bin/bash
+set -e
+
+echo "🔍 Iniciando verificações de pré-push na brazil-formatter..."
+
+CHANGED_TS_FILES=$(git diff --name-only origin/main | grep -E '\.(ts)$' || true)
+
+if [ -n "$CHANGED_TS_FILES" ]; then
+  echo "🚨 Mudanças em TypeScript detectadas — validando..."
+  
+  npm run type-check
+  
+  echo "🧪 Rodando suíte de testes..."
+  npm test
+  
+  # 3. Linting (Assim que você configurar o ESLint)
+  # echo "💅 Verificando estilo de código..."
+  # npm run lint
+
+else
+  echo "✅ Nenhuma mudança crítica em arquivos .ts."
+fi
+
+echo "🚀 Pronto para o push!"
+exit 0
