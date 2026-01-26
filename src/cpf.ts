@@ -3,6 +3,14 @@ import { MaskOptions } from "./types";
 
 const CPF_LEN = 11;
 
+/**
+ * Aplica a máscara de CPF a uma string, mantendo apenas dígitos e formatando
+ * no padrão `000.000.000-00`.
+ *
+ * @param input - Texto de entrada que pode conter caracteres não numéricos.
+ * @param opts - Opções de formatação (por exemplo, `pad` para preencher com zeros à esquerda).
+ * @returns CPF formatado com máscara.
+ */
 export function cpfMask(input: string, opts: MaskOptions = {}): string {
 	const digits = onlyDigits(input);
 	const d = opts.pad ? digits.padStart(CPF_LEN, "0").slice(-CPF_LEN) : digits;
@@ -31,6 +39,12 @@ function cpfCalcCheckDigit(base9or10: string): number {
 	return mod < 2 ? 0 : 11 - mod;
 }
 
+/**
+ * Valida um CPF verificando comprimento, repetição de dígitos e dígitos verificadores.
+ *
+ * @param input - String contendo o CPF (com ou sem formatação).
+ * @returns `true` se o CPF for válido; caso contrário, `false`.
+ */
 export function cpfIsValid(input: string): boolean {
 	const d = onlyDigits(input);
 	if (d.length !== CPF_LEN) return false;
@@ -44,6 +58,13 @@ export function cpfIsValid(input: string): boolean {
 	return d === base9 + String(dv1) + String(dv2);
 }
 
+/**
+ * Formata um CPF com base nas opções de máscara informadas.
+ *
+ * @param input - Texto de entrada que pode conter dígitos e outros caracteres.
+ * @param opts - Opções de máscara que controlam o formato (por exemplo, preenchimento).
+ * @returns CPF formatado conforme as opções de máscara.
+ */
 export function cpfFormat(input: string, opts: MaskOptions = {}): string {
 	const digits = onlyDigits(input);
 	if (!opts.pad && digits.length !== CPF_LEN) return cpfMask(digits, opts);
