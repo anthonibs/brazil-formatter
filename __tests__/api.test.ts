@@ -1,36 +1,46 @@
+import { describe, expect, it } from "@jest/globals";
+
 import { isRepeatedDigits, onlyDigits } from "../src/helpers";
 import {
-	cepFormat,
-	cepIsValid,
-	cepMask,
-	cnpjFormat,
-	cnpjIsValid,
-	cnpjMask,
-	cpfFormat,
-	cpfIsValid,
-	cpfMask,
+	formatCEP,
+	isValidCEP,
+	maskCEP,
+	formatCNPJ,
+	isValidCNPJ,
+	maskCNPJ,
+	formatCPF,
+	isValidCPF,
+	maskCPF,
+	formatPhone,
+	maskPhone,
 } from "../src/index";
 
 const VALID_CPF = "52998224725";
-const VALID_CNPJ = "33000167000101";
+const VALID_CNPJ = "29153853000145";
+const VALID_CNPJ_NUMERIC = "RZ0TNWKC000110";
 const VALID_CEP = "01001000";
+const VALID_MOBILE_PHONE = "11987654321";
+const VALID_LANDLINE_PHONE = "1133224455";
 
 const CNPJ_FORMATTED = "33.000.167/0001-01";
 const REPEATED_DIGITS_CNPJ = "11111111111111";
 
 describe("API exports", () => {
 	it("Should export all main functions", () => {
-		expect(typeof cpfMask).toBe("function");
-		expect(typeof cpfFormat).toBe("function");
-		expect(typeof cpfIsValid).toBe("function");
+		expect(typeof maskCPF).toBe("function");
+		expect(typeof formatCPF).toBe("function");
+		expect(typeof isValidCPF).toBe("function");
 
-		expect(typeof cnpjMask).toBe("function");
-		expect(typeof cnpjFormat).toBe("function");
-		expect(typeof cnpjIsValid).toBe("function");
+		expect(typeof maskCNPJ).toBe("function");
+		expect(typeof formatCNPJ).toBe("function");
+		expect(typeof isValidCNPJ).toBe("function");
 
-		expect(typeof cepMask).toBe("function");
-		expect(typeof cepFormat).toBe("function");
-		expect(typeof cepIsValid).toBe("function");
+		expect(typeof maskCEP).toBe("function");
+		expect(typeof formatCEP).toBe("function");
+		expect(typeof isValidCEP).toBe("function");
+
+		expect(typeof maskPhone).toBe("function");
+		expect(typeof formatPhone).toBe("function");
 	});
 });
 
@@ -52,53 +62,70 @@ describe("Return of utility functions", () => {
 
 describe("CPF", () => {
 	it("Should mask correctly", () => {
-		expect(cpfMask(VALID_CPF)).toBe("529.982.247-25");
-		expect(cpfMask("529982247")).toBe("529.982.247");
+		expect(maskCPF(VALID_CPF)).toBe("529.982.247-25");
+		expect(maskCPF("529982247")).toBe("529.982.247");
 	});
 
 	it("Should format correctly", () => {
-		expect(cpfFormat("529.982.247-25")).toBe("529.982.247-25");
-		expect(cpfFormat("1", { pad: true })).toBe("000.000.000-01");
+		expect(formatCPF("529.982.247-25")).toBe("529.982.247-25");
+		expect(formatCPF("1", { pad: true })).toBe("000.000.000-01");
 	});
 
 	it("Should validate correctly", () => {
-		expect(cpfIsValid(VALID_CPF)).toBe(true);
-		expect(cpfIsValid("11111111111")).toBe(false);
-		expect(cpfIsValid("52998224724")).toBe(false);
+		expect(isValidCPF(VALID_CPF)).toBe(true);
+		expect(isValidCPF("11111111111")).toBe(false);
+		expect(isValidCPF("52998224724")).toBe(false);
 	});
 });
 
 describe("CNPJ", () => {
 	it("Should mask correctly", () => {
-		expect(cnpjMask(VALID_CNPJ)).toBe("33.000.167/0001-01");
-		expect(cnpjMask("042520110001")).toBe("04.252.011/0001");
+		expect(maskCNPJ(VALID_CNPJ)).toBe("29.153.853/0001-45");
+		expect(maskCNPJ(VALID_CNPJ_NUMERIC)).toBe("RZ.0TN.WKC/0001-10");
+		expect(maskCNPJ("042520110001")).toBe("04.252.011/0001");
 	});
 
 	it("Should format correctly", () => {
-		expect(cnpjFormat("33.000.167/0001-01")).toBe("33.000.167/0001-01");
-		expect(cnpjFormat("1", { pad: true })).toBe("00.000.000/0000-01");
+		expect(formatCNPJ("33.000.167/0001-01")).toBe("33.000.167/0001-01");
+		expect(formatCNPJ("11214056062276")).toBe("11.214.056/0622-76");
+		expect(formatCNPJ("05L896DZGLCP15")).toBe("05.L89.6DZ/GLCP-15");
+		expect(formatCNPJ("1", { pad: true })).toBe("00.000.000/0000-01");
 	});
 
 	it("Should validate correctly", () => {
-		expect(cnpjIsValid(VALID_CNPJ)).toBe(true);
-		expect(cnpjIsValid("00000000000000")).toBe(false);
-		expect(cnpjIsValid("04252011000111")).toBe(false);
+		expect(isValidCNPJ(VALID_CNPJ)).toBe(true);
+		expect(isValidCNPJ("00000000000000")).toBe(false);
+		expect(isValidCNPJ("04252011000111")).toBe(false);
 	});
 });
 
 describe("CEP", () => {
 	it("Should mask correctly", () => {
-		expect(cepMask(VALID_CEP)).toBe("01001-000");
-		expect(cepMask("01001")).toBe("01001");
+		expect(maskCEP(VALID_CEP)).toBe("01001-000");
+		expect(maskCEP("01001")).toBe("01001");
 	});
 
 	it("Should format correctly", () => {
-		expect(cepFormat("01001-000")).toBe("01001-000");
-		expect(cepFormat("1", { pad: true })).toBe("00000-001");
+		expect(formatCEP("01001-000")).toBe("01001-000");
+		expect(formatCEP("1", { pad: true })).toBe("00000-001");
 	});
 
 	it("Should validate correctly", () => {
-		expect(cepIsValid(VALID_CEP)).toBe(true);
-		expect(cepIsValid("123")).toBe(false);
+		expect(isValidCEP(VALID_CEP)).toBe(true);
+		expect(isValidCEP("123")).toBe(false);
+	});
+});
+
+describe("Phone", () => {
+	it("Should mask celular numbers", () => {
+		expect(maskPhone(VALID_MOBILE_PHONE)).toBe("(11) 98765-4321");
+	});
+
+	it("Should mask fixo numbers", () => {
+		expect(maskPhone(VALID_LANDLINE_PHONE)).toBe("(11) 3322-4455");
+	});
+
+	it("Should keep mask when formatting", () => {
+		expect(formatPhone(VALID_MOBILE_PHONE)).toBe("(11) 98765-4321");
 	});
 });
