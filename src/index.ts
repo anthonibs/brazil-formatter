@@ -1,4 +1,5 @@
-export { cpfMask, cpfFormat, cpfIsValid } from "./cpf";
-export { cnpjMask, cnpjFormat, cnpjIsValid } from "./cnpj";
-export { cepMask, cepFormat, cepIsValid } from "./cep";
-export type { MaskOptions } from "./types";
+export { formatCPF, isValidCPF, maskCPF } from "./cpf";
+export { formatCNPJ, isValidCNPJ, maskCNPJ } from "./cnpj";
+export { formatCEP, isValidCEP, maskCEP } from "./cep";
+export { formatPhone, maskPhone } from "./phone";
+export type { MaskOptions } from "./interfaces";
