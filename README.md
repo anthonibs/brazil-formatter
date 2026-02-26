@@ -1,7 +1,7 @@
 <img src="./herobanner-brazil.png" />
 
 ![GitHub License](https://img.shields.io/github/license/anthonibs/brazil-formatter)
-![GitHub repo size](https://img.shields.io/github/repo-size/anthonibs/brazil-formatter?style=flat) ![GitHub package.json version](https://img.shields.io/github/package-json/v/anthonibs/brazil-formatter)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/anthonibs/brazil-formatter)
 ![NPM Downloads](https://img.shields.io/npm/d18m/brazil-formatter)
 
 # brazil-formatter
