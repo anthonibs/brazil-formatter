@@ -1,5 +1,5 @@
 import { isRepeatedDigits, onlyDigits } from "./helpers";
-import { MaskOptions } from "./types";
+import { MaskOptions } from "./interfaces";
 
 const CPF_LEN = 11;
 
@@ -11,7 +11,7 @@ const CPF_LEN = 11;
  * @param opts - Opções de formatação (por exemplo, `pad` para preencher com zeros à esquerda).
  * @returns CPF formatado com máscara.
  */
-export function cpfMask(input: string, opts: MaskOptions = {}): string {
+export function maskCPF(input: string, opts: MaskOptions = {}): string {
 	const digits = onlyDigits(input);
 	const d = opts.pad ? digits.padStart(CPF_LEN, "0").slice(-CPF_LEN) : digits;
 
@@ -27,7 +27,7 @@ export function cpfMask(input: string, opts: MaskOptions = {}): string {
 	return out;
 }
 
-function cpfCalcCheckDigit(base9or10: string): number {
+function calcDigit(base9or10: string): number {
 	let sum = 0;
 	const len = base9or10.length;
 	let weight = len + 1;
@@ -45,15 +45,15 @@ function cpfCalcCheckDigit(base9or10: string): number {
  * @param input - String contendo o CPF (com ou sem formatação).
  * @returns `true` se o CPF for válido; caso contrário, `false`.
  */
-export function cpfIsValid(input: string): boolean {
+export function isValidCPF(input: string): boolean {
 	const d = onlyDigits(input);
 	if (d.length !== CPF_LEN) return false;
 	if (isRepeatedDigits(d)) return false;
 
 	const base9 = d.slice(0, 9);
-	const dv1 = cpfCalcCheckDigit(base9);
+	const dv1 = calcDigit(base9);
 	const base10 = base9 + String(dv1);
-	const dv2 = cpfCalcCheckDigit(base10);
+	const dv2 = calcDigit(base10);
 
 	return d === base9 + String(dv1) + String(dv2);
 }
@@ -65,8 +65,4 @@ export function cpfIsValid(input: string): boolean {
  * @param opts - Opções de máscara que controlam o formato (por exemplo, preenchimento).
  * @returns CPF formatado conforme as opções de máscara.
  */
-export function cpfFormat(input: string, opts: MaskOptions = {}): string {
-	const digits = onlyDigits(input);
-	if (!opts.pad && digits.length !== CPF_LEN) return cpfMask(digits, opts);
-	return cpfMask(digits, opts);
-}
+export const formatCPF = maskCPF;

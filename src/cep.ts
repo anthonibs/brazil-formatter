@@ -1,5 +1,5 @@
 import { onlyDigits } from "./helpers";
-import { MaskOptions } from "./types";
+import { MaskOptions } from "./interfaces";
 
 const CEP_LEN = 8;
 
@@ -11,7 +11,7 @@ const CEP_LEN = 8;
  * @param opts.pad - Quando `true`, preenche com zeros à esquerda até 8 dígitos.
  * @returns CEP formatado no padrão `#####-###`.
  */
-export function cepMask(input: string, opts: MaskOptions = {}): string {
+export function maskCEP(input: string, opts: MaskOptions = {}): string {
 	const digits = onlyDigits(input);
 	const d = opts.pad ? digits.padStart(CEP_LEN, "0").slice(-CEP_LEN) : digits;
 
@@ -29,7 +29,7 @@ export function cepMask(input: string, opts: MaskOptions = {}): string {
  * @param input - String contendo o CEP (pode incluir caracteres não numéricos).
  * @returns `true` se, após manter apenas dígitos, o CEP tiver o comprimento esperado; caso contrário, `false`.
  */
-export function cepIsValid(input: string): boolean {
+export function isValidCEP(input: string): boolean {
 	const d = onlyDigits(input);
 	return d.length === CEP_LEN;
 }
@@ -41,8 +41,4 @@ export function cepIsValid(input: string): boolean {
  * @param opts - Opções de máscara que controlam preenchimento e formatação.
  * @returns CEP formatado.
  */
-export function cepFormat(input: string, opts: MaskOptions = {}): string {
-	const d = onlyDigits(input);
-	if (!opts.pad && d.length !== CEP_LEN) return cepMask(d, opts);
-	return cepMask(d, opts);
-}
+export const formatCEP = maskCEP;
